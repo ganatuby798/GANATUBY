@@ -12,7 +12,7 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family: 'Segoe UI', sans-serif;
+font-family:'Segoe UI',sans-serif;
 }
 
 body{
@@ -27,12 +27,19 @@ display:flex;
 justify-content:space-between;
 align-items:center;
 color:white;
+flex-wrap:wrap;
+gap:10px;
 }
 
 .logo{
 font-size:32px;
 font-weight:bold;
 letter-spacing:3px;
+}
+
+.subtitulo{
+font-size:14px;
+opacity:.9;
 }
 
 .whatsapp{
@@ -59,25 +66,41 @@ box-shadow:0 10px 25px rgba(0,0,0,.1);
 border:2px solid #d8b07b;
 }
 
-.premio-img{
-width:100%;
-border-radius:15px;
+.banner-premio{
+background:linear-gradient(135deg,#2d1b0f,#6b4423,#c89b63);
+color:white;
+padding:25px;
+border-radius:20px;
+text-align:center;
+margin-bottom:20px;
+}
+
+.titulo-premio{
+font-size:30px;
+font-weight:800;
+margin-bottom:10px;
+}
+
+.premio-valor{
+font-size:55px;
+font-weight:bold;
+color:#ffe8a3;
+margin-bottom:15px;
+}
+
+.premios-lista{
+line-height:2;
 }
 
 .titulo{
-font-size:28px;
+font-size:26px;
 font-weight:bold;
-margin-top:15px;
+margin-bottom:15px;
 color:#7a5634;
 }
 
 .info{
-margin-top:15px;
 line-height:2;
-}
-
-.info strong{
-color:#8b5e34;
 }
 
 .tablero{
@@ -92,6 +115,7 @@ display:flex;
 gap:20px;
 margin-bottom:20px;
 font-weight:bold;
+flex-wrap:wrap;
 }
 
 .estado span{
@@ -126,20 +150,22 @@ gap:10px;
 }
 
 .numero{
-background:#fff8ee;
-border:2px solid #d8b07b;
+background:#fffaf2;
+border:2px solid #c89b63;
 padding:20px 0;
 text-align:center;
 font-size:22px;
-font-weight:bold;
-border-radius:12px;
+font-weight:700;
+border-radius:15px;
 cursor:pointer;
-transition:.2s;
+transition:.25s;
+color:#4b2f22;
 }
 
 .numero:hover{
-transform:scale(1.05);
-background:#f7e7c6;
+background:#c89b63;
+color:white;
+transform:translateY(-3px);
 }
 
 .pago{
@@ -150,14 +176,14 @@ gap:20px;
 }
 
 .box{
-background:#fff;
+background:white;
 padding:20px;
 border-radius:15px;
 border:1px solid #d8b07b;
 }
 
 .nequi{
-font-size:28px;
+font-size:30px;
 font-weight:bold;
 color:#6a1b9a;
 }
@@ -167,10 +193,10 @@ display:block;
 background:#25D366;
 color:white;
 text-decoration:none;
-padding:20px;
+padding:18px;
 text-align:center;
 border-radius:15px;
-font-size:22px;
+font-size:20px;
 font-weight:bold;
 }
 
@@ -194,6 +220,10 @@ grid-template-columns:repeat(5,1fr);
 font-size:18px;
 }
 
+.pago{
+grid-template-columns:1fr;
+}
+
 }
 
 </style>
@@ -204,14 +234,16 @@ font-size:18px;
 
 <div>
 <div class="logo">GANATUBY</div>
-<div>Tu suerte comienza aquí ✨</div>
+<div class="subtitulo">
+🎉 Gran Doblete • Premio Mayor $170.000
+</div>
 </div>
 
 <a
 class="whatsapp"
 href="https://wa.me/573235780203"
 target="_blank">
-ÚNETE
+WhatsApp
 </a>
 
 </header>
@@ -220,22 +252,29 @@ target="_blank">
 
 <div class="sidebar">
 
-<img
-class="premio-img"
-src="https://i.imgur.com/f4Y8s1A.jpg"
-alt="Gran Doblete">
+<div class="banner-premio">
 
-<div class="titulo">
+<div class="titulo-premio">
 💰 GRAN DOBLETE
 </div>
 
+<div class="premio-valor">
+$170.000
+</div>
+
+<div class="premios-lista">
+<p>🥇 2 primeras cifras: $50.000</p>
+<p>🥈 2 últimas cifras: $60.000</p>
+<p>🏆 4 cifras completas: $170.000</p>
+</div>
+
+</div>
+
+<div class="titulo">
+Información de la Rifa
+</div>
+
 <div class="info">
-
-<p><strong>2 primeras cifras:</strong> $50.000</p>
-
-<p><strong>2 últimas cifras:</strong> $60.000</p>
-
-<p><strong>4 cifras completas:</strong> $170.000</p>
 
 <p><strong>Valor por número:</strong> $2.000</p>
 
@@ -243,7 +282,7 @@ alt="Gran Doblete">
 
 <p><strong>Nequi:</strong> 3186519836</p>
 
-<p><strong>Números:</strong> 00 al 99</p>
+<p><strong>Números disponibles:</strong> 00 al 99</p>
 
 </div>
 
