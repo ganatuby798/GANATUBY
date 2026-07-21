@@ -359,7 +359,30 @@ Reservar por WhatsApp
 © 2025 GANATUBY - Todos los derechos reservados
 </footer>
 
-<script>
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAXtWHSjrxY3IoL16elDw0jrjUdY0Skjbs",
+  authDomain: "ganatuby-rifas.firebaseapp.com",
+  databaseURL: "https://ganatuby-rifas-default-rtdb.firebaseio.com",
+  projectId: "ganatuby-rifas",
+  storageBucket: "ganatuby-rifas.firebasestorage.app",
+  messagingSenderId: "458859546932",
+  appId: "1:458859546932:web:23440fd7a1ecca75a83d61",
+  measurementId: "G-R9NLD4L4KG"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+    const estadosRef = ref(db, "numeros");
+    let estados = {};
+    
+
+onValue(estadosRef, (snapshot) => {
+  estados = snapshot.val() || {};
+});
 
 const grid = document.getElementById("gridNumeros");
 
@@ -372,6 +395,14 @@ for(let i = 0; i <= 99; i++){
     div.className = "numero";
 
     div.innerHTML = numero;
+    if(estados[numero] === "reservado"){
+    div.classList.add("reservado-numero");
+        
+}
+
+if(estados[numero] === "vendido"){
+    div.classList.add("vendido-numero");
+}
 
     div.onclick = () => {
 
@@ -381,6 +412,7 @@ for(let i = 0; i <= 99; i++){
         ){
 
             div.classList.add("reservado-numero");
+            set(ref(db, "numeros/" + numero), "reservado");
 
             window.open(
             `https://wa.me/573235780203?text=Hola GANATUBY, quiero reservar el número ${numero}`,
@@ -393,12 +425,17 @@ for(let i = 0; i <= 99; i++){
 
             div.classList.remove("reservado-numero");
             div.classList.add("vendido-numero");
-
+set(ref(db, "numeros/" + numero), "vendido");
         }
 
-        else{
+     
+            else{
 
-            div.classList.remove("vendido-numero");
+    div.classList.remove("vendido-numero");
+
+    set(ref(db, "numeros/" + numero), null);
+
+}
 
         }
 
