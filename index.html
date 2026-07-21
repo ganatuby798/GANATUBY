@@ -360,7 +360,8 @@ Reservar por WhatsApp
 </footer>
 
 <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 const firebaseConfig = {
@@ -376,77 +377,68 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
-    const estadosRef = ref(db, "numeros");
-    let estados = {};
-    
-
-onValue(estadosRef, (snapshot) => {
-  estados = snapshot.val() || {};
-});
+const estadosRef = ref(db, "numeros");
 
 const grid = document.getElementById("gridNumeros");
 
-for(let i = 0; i <= 99; i++){
+onValue(estadosRef, (snapshot) => {
 
-    const numero = i.toString().padStart(2,"0");
+    const estados = snapshot.val() || {};
 
-    const div = document.createElement("div");
+    grid.innerHTML = "";
 
-    div.className = "numero";
+    for(let i = 0; i <= 99; i++){
 
-    div.innerHTML = numero;
-    if(estados[numero] === "reservado"){
-    div.classList.add("reservado-numero");
-        
-}
+        const numero = i.toString().padStart(2,"0");
 
-if(estados[numero] === "vendido"){
-    div.classList.add("vendido-numero");
-}
+        const div = document.createElement("div");
 
-    div.onclick = () => {
+        div.className = "numero";
+        div.innerHTML = numero;
 
-        if(
-            !div.classList.contains("reservado-numero") &&
-            !div.classList.contains("vendido-numero")
-        ){
-
+        if(estados[numero] === "reservado"){
             div.classList.add("reservado-numero");
-            set(ref(db, "numeros/" + numero), "reservado");
-
-            window.open(
-            `https://wa.me/573235780203?text=Hola GANATUBY, quiero reservar el número ${numero}`,
-            "_blank"
-            );
-
         }
 
-        else if(div.classList.contains("reservado-numero")){
-
-            div.classList.remove("reservado-numero");
+        if(estados[numero] === "vendido"){
             div.classList.add("vendido-numero");
-set(ref(db, "numeros/" + numero), "vendido");
         }
 
-     
+        div.onclick = () => {
+
+            if(
+                !div.classList.contains("reservado-numero") &&
+                !div.classList.contains("vendido-numero")
+            ){
+
+                set(ref(db, "numeros/" + numero), "reservado");
+
+                window.open(
+                    `https://wa.me/573235780203?text=Hola GANATUBY, quiero reservar el número ${numero}`,
+                    "_blank"
+                );
+
+            }
+
+            else if(div.classList.contains("reservado-numero")){
+
+                set(ref(db, "numeros/" + numero), "vendido");
+
+            }
+
             else{
 
-    div.classList.remove("vendido-numero");
+                set(ref(db, "numeros/" + numero), null);
 
-    set(ref(db, "numeros/" + numero), null);
+            }
 
-}
+        };
 
-        }
+        grid.appendChild(div);
 
-    };
+    }
 
-    grid.appendChild(div);
-
-}
+});
 
 </script>
-
-
-</body>
 </html>
