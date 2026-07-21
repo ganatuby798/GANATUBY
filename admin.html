@@ -2,11 +2,155 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Admin GANATUBY</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel Admin GANATUBY</title>
+
+<style>
+body{
+font-family:Arial,sans-serif;
+background:#f5f5f5;
+padding:30px;
+text-align:center;
+}
+
+h1{
+margin-bottom:20px;
+}
+
+input{
+padding:10px;
+font-size:18px;
+margin-bottom:20px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(10,1fr);
+gap:10px;
+max-width:900px;
+margin:auto;
+}
+
+.numero{
+padding:15px;
+background:white;
+border:2px solid #ccc;
+border-radius:10px;
+cursor:pointer;
+font-weight:bold;
+}
+
+.reservado{
+background:#d4a64d;
+color:white;
+}
+
+.vendido{
+background:#7e57c2;
+color:white;
+}
+</style>
 </head>
 <body>
 
-<h1>Panel Administrador GANATUBY</h1>
+<h1>Panel Admin GANATUBY</h1>
+
+<input
+type="password"
+id="clave"
+placeholder="Contraseña"
+/>
+
+<button onclick="entrar()">Entrar</button>
+
+<div id="panel" style="display:none;">
+<br><br>
+<div id="grid" class="grid"></div>
+</div>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+const firebaseConfig = {
+apiKey: "AIzaSyAXtWHSjrxY3IoL16elDw0jrjUdY0Skjbs",
+authDomain: "ganatuby-rifas.firebaseapp.com",
+databaseURL: "https://ganatuby-rifas-default-rtdb.firebaseio.com",
+projectId: "ganatuby-rifas",
+storageBucket: "ganatuby-rifas.firebasestorage.app",
+messagingSenderId: "458859546932",
+appId: "1:458859546932:web:23440fd7a1ecca75a83d61"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+window.entrar = function(){
+
+const clave = document.getElementById("clave").value;
+
+if(clave !== "Ganatuby2025"){
+alert("Contraseña incorrecta");
+return;
+}
+
+document.getElementById("panel").style.display = "block";
+
+const grid = document.getElementById("grid");
+
+onValue(ref(db,"numeros"), snapshot => {
+
+const estados = snapshot.val() || {};
+
+grid.innerHTML = "";
+
+for(let i=0;i<=99;i++){
+
+const numero = i.toString().padStart(2,"0");
+
+const div = document.createElement("div");
+
+div.className = "numero";
+div.innerHTML = numero;
+
+if(estados[numero] === "reservado"){
+div.classList.add("reservado");
+}
+
+if(estados[numero] === "vendido"){
+div.classList.add("vendido");
+}
+
+div.onclick = () => {
+
+if(estados[numero] === "reservado"){
+
+set(ref(db,"numeros/"+numero),"vendido");
+
+}
+else if(estados[numero] === "vendido"){
+
+set(ref(db,"numeros/"+numero),null);
+
+}
+else{
+
+set(ref(db,"numeros/"+numero),"reservado");
+
+}
+
+};
+
+grid.appendChild(div);
+
+}
+
+});
+
+}
+
+</script>
 
 </body>
 </html>
