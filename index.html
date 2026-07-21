@@ -169,9 +169,16 @@ cursor:pointer;
 transition:.25s;
 }
 
-.numero:hover{
-background:#f8e5c2;
-transform:translateY(-3px);
+.reservado-numero{
+background:#d4a64d !important;
+color:white;
+border-color:#b88942;
+}
+
+.vendido-numero{
+background:#7e57c2 !important;
+color:white;
+border-color:#6b46c1;
 }
 
 .pago{
@@ -354,32 +361,55 @@ Reservar por WhatsApp
 
 <script>
 
-const grid=document.getElementById("gridNumeros");
+const grid = document.getElementById("gridNumeros");
 
-for(let i=0;i<=99;i++){
+for(let i = 0; i <= 99; i++){
 
-const numero=i.toString().padStart(2,"0");
+    const numero = i.toString().padStart(2,"0");
 
-const div=document.createElement("div");
+    const div = document.createElement("div");
 
-div.className="numero";
+    div.className = "numero";
 
-div.innerHTML=numero;
+    div.innerHTML = numero;
 
-div.onclick=()=>{
+    div.onclick = () => {
 
-window.open(
-`https://wa.me/573235780203?text=Hola GANATUBY, quiero reservar el número ${numero}`,
-"_blank"
-);
+        if(
+            !div.classList.contains("reservado-numero") &&
+            !div.classList.contains("vendido-numero")
+        ){
 
-};
+            div.classList.add("reservado-numero");
 
-grid.appendChild(div);
+            window.open(
+            `https://wa.me/573235780203?text=Hola GANATUBY, quiero reservar el número ${numero}`,
+            "_blank"
+            );
+
+        }
+
+        else if(div.classList.contains("reservado-numero")){
+
+            div.classList.remove("reservado-numero");
+            div.classList.add("vendido-numero");
+
+        }
+
+        else{
+
+            div.classList.remove("vendido-numero");
+
+        }
+
+    };
+
+    grid.appendChild(div);
 
 }
 
 </script>
+
 
 </body>
 </html>
