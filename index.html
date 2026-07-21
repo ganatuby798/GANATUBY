@@ -415,42 +415,42 @@ onValue(estadosRef, (snapshot) => {
 
     grid.innerHTML = "";
 
-    for(let i = 0; i <= 99; i++){
+for(let i = 0; i <= 99; i++){
 
-        const numero = i.toString().padStart(2,"0");
+    const numero = i.toString().padStart(2,"0");
 
-        const div = document.createElement("div");
+    const div = document.createElement("div");
 
-        div.className = "numero";
-        div.innerHTML = numero;
+    div.className = "numero";
+    div.innerHTML = numero;
 
-        if(estados[numero] === "reservado"){
-            div.classList.add("reservado-numero");
-        }
-
-        if(estados[numero] === "vendido"){
-            div.classList.add("vendido-numero");
-        }
-
-        div.onclick = () => {
-
-            if(
-                !div.classList.contains("reservado-numero") &&
-                !div.classList.contains("vendido-numero")
-            ){
-
-                window.open(
-                    `https://wa.me/573235780203?text=Hola GANATUBY, quiero reservar el número ${numero}`,
-                    "_blank"
-                );
-
-            }
-
-        };
-
-        grid.appendChild(div);
-
+    if(estados[numero] === "reservado"){
+        div.classList.add("reservado-numero");
     }
+
+    if(estados[numero] === "vendido"){
+        div.classList.add("vendido-numero");
+    }
+
+    div.onclick = () => {
+
+        if(
+            !div.classList.contains("reservado-numero") &&
+            !div.classList.contains("vendido-numero")
+        ){
+
+            window.open(
+                `https://wa.me/573235780203?text=Hola GANATUBY, quiero reservar el número ${numero}`,
+                "_blank"
+            );
+
+        }
+
+    };
+
+    grid.appendChild(div);
+
+}
 
 });
 
