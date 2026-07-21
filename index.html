@@ -434,29 +434,15 @@ onValue(estadosRef, (snapshot) => {
 
         div.onclick = () => {
 
-    if(
-        !div.classList.contains("reservado-numero") &&
-        !div.classList.contains("vendido-numero")
-    ){
+            if(
+                !div.classList.contains("reservado-numero") &&
+                !div.classList.contains("vendido-numero")
+            ){
 
-        window.open(
-            `https://wa.me/573235780203?text=Hola GANATUBY, quiero reservar el número ${numero}`,
-            "_blank"
-        );
-
-    }
-
-};
-
-            else if(div.classList.contains("reservado-numero")){
-
-                set(ref(db, "numeros/" + numero), "vendido");
-
-            }
-
-            else{
-
-                set(ref(db, "numeros/" + numero), null);
+                window.open(
+                    `https://wa.me/573235780203?text=Hola GANATUBY, quiero reservar el número ${numero}`,
+                    "_blank"
+                );
 
             }
 
