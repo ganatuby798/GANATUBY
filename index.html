@@ -434,19 +434,19 @@ onValue(estadosRef, (snapshot) => {
 
         div.onclick = () => {
 
-            if(
-                !div.classList.contains("reservado-numero") &&
-                !div.classList.contains("vendido-numero")
-            ){
+    if(
+        !div.classList.contains("reservado-numero") &&
+        !div.classList.contains("vendido-numero")
+    ){
 
-                set(ref(db, "numeros/" + numero), "reservado");
+        window.open(
+            `https://wa.me/573235780203?text=Hola GANATUBY, quiero reservar el número ${numero}`,
+            "_blank"
+        );
 
-                window.open(
-                    `https://wa.me/573235780203?text=Hola GANATUBY, quiero reservar el número ${numero}`,
-                    "_blank"
-                );
+    }
 
-            }
+};
 
             else if(div.classList.contains("reservado-numero")){
 
